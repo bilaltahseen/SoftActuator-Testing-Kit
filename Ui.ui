@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.0">
+  <object class="ttk.Frame" id="frame_3">
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <layout manager="pack">
+      <property name="propagate">True</property>
+      <property name="side">top</property>
+    </layout>
+    <child>
+      <object class="ttk.Label" id="label_4_5">
+        <property name="font">{Arial} 20 {bold}</property>
+        <property name="justify">left</property>
+        <property name="padding">2 10</property>
+        <property name="text" translatable="yes">Soft Actuator
+</property>
+        <layout manager="pack">
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Label" id="label_6">
+        <property name="background">#008000</property>
+        <property name="font">{Arial} 12 {bold}</property>
+        <property name="foreground">#ffffff</property>
+        <property name="padding">2</property>
+        <property name="text" translatable="yes">Connected</property>
+        <layout manager="pack">
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="frame_4">
+        <property name="height">10</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Labelframe" id="labelframe_1_2">
+        <property name="height">200</property>
+        <property name="text" translatable="yes">Record Test</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label_1">
+            <property name="text" translatable="yes">Test Name</property>
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="propagate">True</property>
+              <property name="side">left</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="button_2">
+            <property name="style">STOP_BTN</property>
+            <property name="text" translatable="yes">Stop</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">right</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="button_1">
+            <property name="style">STOP_BTN</property>
+            <property name="text" translatable="yes">Start</property>
+            <layout manager="pack">
+              <property name="padx">10</property>
+              <property name="propagate">True</property>
+              <property name="side">right</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="entry_1">
+            <property name="text" translatable="yes">entry_1</property>
+            <layout manager="pack">
+              <property name="propagate">True</property>
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Labelframe" id="labelframe_1">
+        <property name="height">200</property>
+        <property name="padding">10</property>
+        <property name="relief">flat</property>
+        <property name="text" translatable="yes">Pump Controls
+</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Button" id="button_5">
+            <property name="text" translatable="yes">LOW</property>
+            <layout manager="grid">
+              <property name="propagate">True</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="button_6">
+            <property name="takefocus">false</property>
+            <property name="text" translatable="yes">MEDIUM</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="button_7">
+            <property name="text" translatable="yes">HIGH</property>
+            <layout manager="grid">
+              <property name="column">2</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Labelframe" id="labelframe_3">
+        <property name="height">200</property>
+        <property name="text" translatable="yes">Valve Controls</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Button" id="button_11">
+            <property name="text" translatable="yes">Bending</property>
+            <layout manager="grid">
+              <property name="propagate">True</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="button_12">
+            <property name="text" translatable="yes">Straight</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="button_13">
+            <property name="text" translatable="yes">Deflate</property>
+            <layout manager="grid">
+              <property name="column">2</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="frame_6">
+        <property name="height">480</property>
+        <property name="padding">10</property>
+        <property name="width">640</property>
+        <layout manager="pack">
+          <property name="propagate">True</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Labelframe" id="labelframe_4">
+            <property name="height">640</property>
+            <property name="labelanchor">n</property>
+            <property name="takefocus">false</property>
+            <property name="text" translatable="yes">Pressue Graph</property>
+            <property name="width">480</property>
+            <layout manager="grid">
+              <property name="propagate">True</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame_9">
+            <property name="width">10</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame_10">
+            <property name="height">640</property>
+            <property name="takefocus">false</property>
+            <property name="width">480</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
