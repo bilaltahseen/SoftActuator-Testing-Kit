@@ -23,7 +23,7 @@ class NewprojectApp:
     xdata, ydata = [], []
     bendingSWFlag = True
     deflateSWFlag = True
-    scaleFactor = 1.4
+    scaleFactor = 1.3
     count = 0
     num = 0
     start = False
@@ -80,13 +80,16 @@ class NewprojectApp:
             cursor='arrow', textvariable=self.time, font='{Arial} 16 {bold}', justify='center', padding='2 10')
         self.label_10.pack(side='top')
         self.labelframe_1 = ttk.Labelframe(self.frame_3)
-        self.button_5 = ttk.Button(self.labelframe_1)
+        self.button_5 = ttk.Button(
+            self.labelframe_1, command=lambda: self.motorControl(1))
         self.button_5.config(text='LOW')
         self.button_5.grid()
-        self.button_6 = ttk.Button(self.labelframe_1)
+        self.button_6 = ttk.Button(
+            self.labelframe_1, command=lambda: self.motorControl(2))
         self.button_6.config(takefocus=False, text='MEDIUM')
         self.button_6.grid(column='1', row='0')
-        self.button_7 = ttk.Button(self.labelframe_1)
+        self.button_7 = ttk.Button(
+            self.labelframe_1, command=lambda: self.motorControl(3))
         self.button_7.config(text='HIGH')
         self.button_7.grid(column='2', row='0')
         self.labelframe_1.config(
@@ -126,7 +129,7 @@ class NewprojectApp:
         self.mainwindow = self.frame_3
 
         # Matplot Lib
-        self.fig = Figure((320*self.scaleFactor/96, 280 *
+        self.fig = Figure((360*self.scaleFactor/96, 290 *
                            self.scaleFactor/96), dpi=96)
         self.ax = self.fig.add_subplot(111)
         self.line, = self.ax.plot([], [], lw=1)
@@ -174,11 +177,25 @@ class NewprojectApp:
 
     def datalogger(self):
         print("Dumped")
-        with open(f'PressureLog{datetime.datetime.now().strftime("%b-%d-%Y-%H-%M-%S")}.csv', mode='a+', newline='') as pressure_file:
+        with open(f'{self.entry_1.get()}.csv', mode='a+', newline='') as pressure_file:
             pressure_writer = csv.writer(
                 pressure_file, delimiter=',', quoting=csv.QUOTE_MINIMAL, quotechar='"')
             for x, y in zip(self.xdata, self.ydata):
                 pressure_writer.writerow([x, y])
+
+    def motorControl(self, level):
+        if ser.isOpen():
+            try:
+                if(level == 1):
+                    ser.write('E'.encode())
+                if(level == 2):
+                    ser.write('F'.encode())
+                if(level == 3):
+                    ser.write('G'.encode())
+                else:
+                    return
+            except Exception as e:
+                print(e)
 
     def BendingValveSW(self):
         if ser.isOpen():
@@ -207,13 +224,16 @@ class NewprojectApp:
             yield float(ser.readline().decode('utf-8').split(',')[0]), float(ser.readline().decode('utf-8').split(',')[1])
 
     def init(self):
-        self.ax.set_ylim([20, 100])
+        self.ax.set_ylim([0, 150])
+        self.ax.set_xlabel("Seconds")
+        self.ax.set_ylabel("Pressure Kpa")
         del self.xdata[:]
         del self.ydata[:]
         self.line.set_data(self.xdata, self.ydata)
         return self.line,
 
     def update(self, data):
+        print(data)
         t, y = data
         self.time.set(
             str(f'Elapsed Time {datetime.timedelta(seconds=int(t))}'))
