@@ -1,4 +1,5 @@
 
+# Required Module for imports.
 import csv
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -13,13 +14,19 @@ from PIL import Image, ImageTk
 import numpy as np
 import serial
 import datetime
+
+# MatlplotLib Theme
 style.use('ggplot')
 
+# Globals Declearations
 global ser
 ser = None
 
+# Tkinter Class
+
 
 class NewprojectApp:
+    # Class Variables
     xdata, ydata = [], []
     bendingSWFlag = True
     deflateSWFlag = True
@@ -27,6 +34,7 @@ class NewprojectApp:
     count = 0
     num = 0
     start = False
+    # Init Function
 
     def __init__(self, master=None):
         # build ui
@@ -143,12 +151,14 @@ class NewprojectApp:
 
     def run(self):
         self.mainwindow.mainloop()
+    # Start Button Handler Function
 
     def startRecord(self):
         self.button_2['state'] = 'normal'
         self.button_1['state'] = 'disabled'
         self.start = True
         self.ani.event_source.start()
+    # Stop Button Handler Function
 
     def stopRecord(self):
         self.button_2['state'] = 'disabled'
@@ -156,6 +166,7 @@ class NewprojectApp:
         self.start = True
         self.ani.event_source.stop()
         self.datalogger()
+    # OpenCV Realtime Video Processing
 
     def show_frame(self):
         ok, frame = self.cap.read()
@@ -174,6 +185,7 @@ class NewprojectApp:
             self.cv2Label.imgtk = imgtk
             self.cv2Label.config(image=imgtk)  # show the image
         self.cv2Label.after(30, self.show_frame)
+    # Datalogger Function
 
     def datalogger(self):
         print("Dumped")
@@ -182,12 +194,13 @@ class NewprojectApp:
                 pressure_file, delimiter=',', quoting=csv.QUOTE_MINIMAL, quotechar='"')
             for x, y in zip(self.xdata, self.ydata):
                 pressure_writer.writerow([x, y])
+    # Motor Controling Operations
 
     def motorControl(self, level):
-        if ser.isOpen():
+        if ser.isOpen():  # Checking if Serial Port is Open
             try:
                 if(level == 1):
-                    ser.write('E'.encode())
+                    ser.write('E'.encode())  # Serial Write Operations
                 if(level == 2):
                     ser.write('F'.encode())
                 if(level == 3):
@@ -196,6 +209,7 @@ class NewprojectApp:
                     return
             except Exception as e:
                 print(e)
+    # Bending Valve Button Handler
 
     def BendingValveSW(self):
         if ser.isOpen():
@@ -207,6 +221,7 @@ class NewprojectApp:
                 self.bendingSWFlag = not self.bendingSWFlag
             except Exception as e:
                 print(e)
+    # Deflate Valve Button Handler.
 
     def DeflateValveSW(self):
         if ser.isOpen():
@@ -218,6 +233,7 @@ class NewprojectApp:
                 self.deflateSWFlag = not self.deflateSWFlag
             except Exception as e:
                 print(e)
+    # MatlplotLib Generator Function.
 
     def generate_data(self, t=0):
         while True:
