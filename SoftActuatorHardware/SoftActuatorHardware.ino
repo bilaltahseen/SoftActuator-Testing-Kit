@@ -105,12 +105,12 @@ void loop()
       break;
     case 'C':
       DeflateValveSW(0); // If Serial reads 'C' execute this case.
-      break;                             .
-    case 'D':                            .
-      DeflateValveSW(1);                 .
-      break;                             .
-    case 'E':                            .
-      MotorControls(1);                  .
+      break;                             
+    case 'D':                           
+      DeflateValveSW(1);                
+      break;                            
+    case 'E':                            
+      MotorControls(1);                  
       break;
     case 'F':
       MotorControls(2);

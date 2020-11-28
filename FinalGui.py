@@ -12,7 +12,7 @@ import argparse
 import cv2
 from PIL import Image, ImageTk
 import numpy as np
-import serial
+from serial import Serial
 import datetime
 
 # MatlplotLib Theme
@@ -272,7 +272,7 @@ args = parser.parse_args()
 if __name__ == '__main__' and args.port:
     import tkinter as tk
     try:
-        ser = serial.Serial(str(args.port), 9600)
+        ser = Serial(str(args.port), 9600)
         ser.close()
         ser.open()
         if ser.isOpen():
@@ -282,5 +282,5 @@ if __name__ == '__main__' and args.port:
 
         app = NewprojectApp(root)
         app.run()
-    except serial.serialutil.SerialException as e:
+    except Serial.SerialException as e:
         print(e)

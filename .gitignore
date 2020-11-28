@@ -1,7 +1,7 @@
-/serialENV/
+/venv/
 /.vscode/
 /.ipynb_checkpoints/
 /__pycache__/
-app.py
+
 
 
