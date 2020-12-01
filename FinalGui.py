@@ -237,12 +237,13 @@ class NewprojectApp:
 
     def generate_data(self, t=0):
         while True:
-            yield float(ser.readline().decode('utf-8').split(',')[0]), float(ser.readline().decode('utf-8').split(',')[1])
+            yield float(ser.readline().decode('utf-8').split(',')[0]),float(ser.readline().decode('utf-8').split(',')[1]), float(ser.readline().decode('utf-8').split(',')[2])
 
     def init(self):
-        self.ax.set_ylim([0, 150])
-        self.ax.set_xlabel("Seconds")
-        self.ax.set_ylabel("Pressure Kpa")
+        self.ax.set_ylim([93, 150])
+        self.ax.set_xlim([0,7])
+        self.ax.set_xlabel("Froce (N)")
+        self.ax.set_ylabel("Pressure (Kpa)")
         del self.xdata[:]
         del self.ydata[:]
         self.line.set_data(self.xdata, self.ydata)
@@ -250,17 +251,17 @@ class NewprojectApp:
 
     def update(self, data):
         print(data)
-        t, y = data
+        t,y,f = data
         self.time.set(
-            str(f'Elapsed Time {datetime.timedelta(seconds=int(t))}'))
-        self.xdata.append(t)
+            str(f'Elapsed Time {datetime.datetime.now().strftime("%H:%M:%S")}'))
+        self.xdata.append(f)
         self.ydata.append(y)
         xmin, xmax = self.ax.get_xlim()
         if self.start == False:
             self.ani.event_source.stop()
-        if t >= xmax:
-            self.ax.set_xlim(xmin, 2*xmax)
-            self.ax.figure.canvas.draw()
+        # if t >= xmax:
+        #     self.ax.set_xlim(xmin, 2*xmax)
+        #     self.ax.figure.canvas.draw()
         self.line.set_data(self.xdata, self.ydata)
         return self.line,
 

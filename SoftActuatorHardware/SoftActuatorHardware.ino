@@ -14,6 +14,12 @@
 //Global Init
 int count = 0;
 
+int fsrPin = 1;     // the FSR and 10K pulldown are connected to a0
+int fsrReading;     // the analog reading from the FSR resistor divider
+int fsrVoltage;     // the analog reading converted to voltage
+float fsrResistance;  // The voltage converted to resistance
+float fsrConductance; 
+float fsrForce;       // Finally, the resistance converted to 
 void setup()
 {
   // put your setup code here, to run once:
@@ -30,11 +36,13 @@ void setup()
   digitalWrite(DefalteValve, HIGH);
 }
 // Serial Data transfer.
-void TX(float pressure, unsigned long times)
+void TX(float pressure,float fsrForce, unsigned long times)
 {
   Serial.print(times / 1000.0, 2);
   Serial.print(',');
   Serial.print(pressure);
+  Serial.print(',');
+  Serial.print(fsrForce);
   Serial.println(' ');
 }
 
@@ -76,8 +84,8 @@ void MotorControls(int level)
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
-
+  
+  
   // Keep in mind the pull-up means the pushbutton's logic is inverted. It goes
   // HIGH when it's open, and LOW when it's pressed.
   if (digitalRead(masterStop) == 0)
@@ -89,7 +97,27 @@ void loop()
   float rawValue = analogRead(A0);
   float voltage = rawValue * (5.0/1023.0);
   float pressure = (voltage-0.04*5.0)/(5.0*0.0012858);
-  TX(pressure, times);
+  fsrReading = analogRead(A1);  
+  // analog voltage reading ranges from about 0 to 1023 which maps to 0V to 5V (= 5000mV)
+  fsrVoltage = map(fsrReading, 0, 1023, 0, 5000);
+  // put your main code here, to run repeatedly:
+  fsrResistance = 5000 - fsrVoltage;     // fsrVoltage is in millivolts so 5V = 5000mV
+  fsrResistance *= 10000;                // 10K resistor
+  fsrResistance /= fsrVoltage;
+  fsrConductance = 1000000;           // we measure in micromhos so 
+  fsrConductance /= fsrResistance;
+    
+ 
+    // Use the two FSR guide graphs to approximate the force
+    if (fsrConductance <= 1000) {
+      fsrForce = fsrConductance / 80;
+      //Serial.print("Force in Newtons: ");    
+    } else {
+      fsrForce = fsrConductance - 1000;
+      fsrForce /= 30;
+      //Serial.print("Force in Newtons: ");         
+    }
+  TX(pressure,fsrForce,times);
   delay(50);
   
   if (Serial.available() > 0)
